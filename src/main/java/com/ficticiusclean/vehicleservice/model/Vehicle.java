@@ -7,7 +7,6 @@ package com.ficticiusclean.vehicleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +28,22 @@ public class Vehicle implements Serializable {
     private Date dataFabricacao;
     private double consumoMedioCidade;
     private double consumoMedioRodovia;
+    
+    public double simulateCityFuelCost(double fuelCost, double distance){
+        return simulatecityFuelAmout(distance) * fuelCost;
+    }
+    
+    public double simulateHighwayFuelCost(double fuelCost, double distance){
+        return simulateHighwayFuelAmout(distance) * fuelCost;
+    }
+    
+    public double simulateHighwayFuelAmout(double distance){
+        return distance/consumoMedioRodovia;
+    }
+    
+    public double simulatecityFuelAmout(double distance){
+        return distance/consumoMedioCidade;
+    }
 
     public long getId() {
         return id;
