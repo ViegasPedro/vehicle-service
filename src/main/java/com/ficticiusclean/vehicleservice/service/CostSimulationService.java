@@ -8,6 +8,7 @@ package com.ficticiusclean.vehicleservice.service;
 import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleResponse;
+import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class CostSimulationService {
     public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation){
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
         if(vehicles.isEmpty())
-            ;//throw exception
+            throw new VehicleNotFoundException("Não existem veículos na base");
         
         List<VehicleResponse> vehiclesResponse = new ArrayList<>();
         
