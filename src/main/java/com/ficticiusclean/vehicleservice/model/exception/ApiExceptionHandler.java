@@ -7,16 +7,15 @@ package com.ficticiusclean.vehicleservice.model.exception;
 
 import com.ficticiusclean.vehicleservice.model.StandardError;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 /**
  * Created 21/07/2021
@@ -41,6 +40,12 @@ public class ApiExceptionHandler {
                 .collect(Collectors.toList());
 
         StandardError standardError = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), errorMessages);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
+    }
+
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    public ResponseEntity<StandardError> handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
+        StandardError standardError = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), Arrays.asList("Body da requisição inválido"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
 }
