@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.ficticiusclean.vehicleservice.model.exception;
 
 import com.ficticiusclean.vehicleservice.model.StandardError;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -26,19 +27,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(VehicleNotFoundException.class)
-    public ResponseEntity<StandardError> handleVehicleNotFound(VehicleNotFoundException vehicleNotFoundException){
+    public ResponseEntity<StandardError> handleVehicleNotFound(VehicleNotFoundException vehicleNotFoundException) {
         StandardError standardError = new StandardError(HttpStatus.NOT_ACCEPTABLE.value(), LocalDateTime.now(), Arrays.asList(vehicleNotFoundException.getMessage()));
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(standardError);
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardError> handleMethodArgumentNotValid(MethodArgumentNotValidException ex){
+    public ResponseEntity<StandardError> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         List<String> errorMessages = ex.getBindingResult()
-                .getFieldErrors()
+                .getAllErrors()
                 .stream()
                 .map(x -> x.getDefaultMessage())
                 .collect(Collectors.toList());
-        
+
         StandardError standardError = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), errorMessages);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }

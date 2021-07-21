@@ -5,19 +5,19 @@
  */
 package com.ficticiusclean.vehicleservice.model;
 
-import javax.validation.constraints.Positive;
+import com.ficticiusclean.vehicleservice.model.validation.CostSimulation;
+import javax.validation.constraints.PositiveOrZero;
 
 /**
  *
  * @author pedro
  */
+@CostSimulation
 public class CostSimulationDTO {
 
-    @Positive(message = "O campo \"precoGasolina\" deve ser maior que 0")
+    @PositiveOrZero(message = "O campo \"precoGasolina\" deve ser maior ou igual a 0")
     private double precoGasolina;
-    @Positive(message = "O campo \"totalKmCidade\" deve ser maior que 0")
     private double totalKmCidade;
-    @Positive(message = "O campo \"totalKmRodovia\" deve ser maior que 0")
     private double totalKmRodovia;
 
     public double getPrecoGasolina() {
