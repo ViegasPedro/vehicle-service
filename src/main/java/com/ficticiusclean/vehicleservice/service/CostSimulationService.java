@@ -47,7 +47,7 @@ public class CostSimulationService {
                     new VehicleResponse(vehicle.getNome(), 
                             vehicle.getMarca(), 
                             vehicle.getModelo(), 
-                            vehicle.getDataFabricacao().getYear() + 1900, 
+                            vehicle.getDataFabricacao().getYear(), 
                             cityFuelAmountSimulation + highwayFuelAmountSimulation,
                             highwayFuelCostSimulation + cityFuelCostSimulation));
         }

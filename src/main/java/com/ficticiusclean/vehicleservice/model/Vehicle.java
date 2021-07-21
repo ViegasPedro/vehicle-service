@@ -7,7 +7,7 @@ package com.ficticiusclean.vehicleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.Positive;
@@ -26,7 +26,7 @@ public class Vehicle implements Serializable {
     private String marca;
     private String modelo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private Date dataFabricacao;
+    private LocalDate dataFabricacao;
     @Positive(message = "O campo \"consumoMedioCidade\" deve ter valor positivo")
     private double consumoMedioCidade;
     @Positive(message = "O campo \"consumoMedioRodovia\" deve ter valor positivo")
@@ -80,11 +80,11 @@ public class Vehicle implements Serializable {
         this.modelo = modelo;
     }
 
-    public Date getDataFabricacao() {
+    public LocalDate getDataFabricacao() {
         return dataFabricacao;
     }
 
-    public void setDataFabricacao(Date dataFabricacao) {
+    public void setDataFabricacao(LocalDate dataFabricacao) {
         this.dataFabricacao = dataFabricacao;
     }
 
