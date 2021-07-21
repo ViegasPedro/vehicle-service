@@ -8,6 +8,7 @@ package com.ficticiusclean.vehicleservice.resource;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.service.VehicleService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class VehicleResource {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveVehicle(@RequestBody Vehicle vehicle){
+    public void saveVehicle(@Valid @RequestBody Vehicle vehicle){
         vehicleService.saveVehicle(vehicle);
     }
 

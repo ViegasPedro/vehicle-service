@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Positive;
 
 /**
  *
@@ -26,7 +27,9 @@ public class Vehicle implements Serializable {
     private String modelo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date dataFabricacao;
+    @Positive(message = "O campo \"consumoMedioCidade\" deve ter valor positivo")
     private double consumoMedioCidade;
+    @Positive(message = "O campo \"consumoMedioRodovia\" deve ter valor positivo")
     private double consumoMedioRodovia;
     
     public double simulateCityFuelCost(double fuelCost, double distance){
