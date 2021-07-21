@@ -8,6 +8,7 @@ package com.ficticiusclean.vehicleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created 21/07/2021
@@ -19,12 +20,12 @@ public class StandardError {
     private Integer status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime timeStamp;
-    private String message;
+    private List<String> errorMessages;
 
-    public StandardError(Integer status, LocalDateTime timeStamp, String message) {
+    public StandardError(Integer status, LocalDateTime timeStamp, List<String> message) {
         this.status = status;
         this.timeStamp = timeStamp;
-        this.message = message;
+        this.errorMessages = message;
     }
     
     public Integer getStatus() {
@@ -43,12 +44,12 @@ public class StandardError {
         this.timeStamp = timeStamp;
     }
 
-    public String getMessage() {
-        return message;
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setErrorMessages(List<String> errorMessages) {
+        this.errorMessages = errorMessages;
     }
 
 }

@@ -9,6 +9,7 @@ import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
 import com.ficticiusclean.vehicleservice.model.VehicleResponse;
 import com.ficticiusclean.vehicleservice.service.CostSimulationService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class CostSimulationResource {
     private CostSimulationService costSimulationService;
     
     @PostMapping
-    public ResponseEntity<List<VehicleResponse>> simulateFuelCosts(@RequestBody CostSimulationDTO costSimulation){
+    public ResponseEntity<List<VehicleResponse>> simulateFuelCosts(@Valid @RequestBody CostSimulationDTO costSimulation){
         return ResponseEntity.ok(costSimulationService.simulateCosts(costSimulation));
     }
 }
