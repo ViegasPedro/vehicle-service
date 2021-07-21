@@ -10,6 +10,7 @@ import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleResponse;
 import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class CostSimulationService {
                             cityFuelAmountSimulation + highwayFuelAmountSimulation,
                             highwayFuelCostSimulation + cityFuelCostSimulation));
         }
+        Collections.sort(vehiclesResponse);
         return vehiclesResponse;
     }
 }

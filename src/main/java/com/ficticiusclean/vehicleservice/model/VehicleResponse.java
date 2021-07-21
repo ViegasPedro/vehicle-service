@@ -9,7 +9,7 @@ package com.ficticiusclean.vehicleservice.model;
  *
  * @author pedro
  */
-public class VehicleResponse {
+public class VehicleResponse implements Comparable<VehicleResponse> {
 
     private String nome;
     private String marca;
@@ -77,5 +77,13 @@ public class VehicleResponse {
     public void setValorCombustivelGasto(double valorCombustivelGasto) {
         this.valorCombustivelGasto = valorCombustivelGasto;
     }
-    
+
+    public int compareTo(VehicleResponse o) {
+        if (this.valorCombustivelGasto < o.getValorCombustivelGasto())
+            return -1;
+        if (this.valorCombustivelGasto > o.getValorCombustivelGasto())
+            return 1;
+        return 0;
+    }
+
 }
