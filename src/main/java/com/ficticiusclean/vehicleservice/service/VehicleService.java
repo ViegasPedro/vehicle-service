@@ -9,6 +9,7 @@ import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleDTO;
 import com.ficticiusclean.vehicleservice.model.converter.VehicleDtoToVehicleConverter;
 import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleDtoConverter;
+import com.ficticiusclean.vehicleservice.model.exception.InvalidOperationException;
 import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import com.ficticiusclean.vehicleservice.repository.VehicleRepository;
 import java.util.ArrayList;
@@ -34,6 +35,10 @@ public class VehicleService {
     private VehicleToVehicleDtoConverter vehicleToVehicleDTOConverter;
     
     public VehicleDTO saveVehicle(VehicleDTO vehicleDTO){
+        //não pode ter dois veículos com o mesmo nome
+        if(!vehicleRepository.findByName(vehicleDTO.getName()).isEmpty())
+            throw new InvalidOperationException("Já existe um veículo com o nome: " + vehicleDTO.getName());
+        
         Vehicle vehicle = dtoToVehicleConverter.convert(vehicleDTO);
         Vehicle vehicleSaved = vehicleRepository.save(vehicle);
         return vehicleToVehicleDTOConverter.convert(vehicleSaved);
@@ -57,6 +62,10 @@ public class VehicleService {
         Optional vehicleOptional = vehicleRepository.findById(id);
         if(!vehicleOptional.isPresent())
             throw new VehicleNotFoundException("Veículo com id: " + id + " não encontrado");
+        
+        //não pode ter veículo com o mesmo nome
+        if(!vehicleRepository.findByNameAndIdNot(vehicleDTO.getName(), id).isEmpty())
+            throw new InvalidOperationException("Já existe um veículo com o nome: " + vehicleDTO.getName());
         
         Vehicle newVehicle = dtoToVehicleConverter.convert(vehicleDTO);
         newVehicle.setId(id);

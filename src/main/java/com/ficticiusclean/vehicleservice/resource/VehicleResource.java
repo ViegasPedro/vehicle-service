@@ -7,6 +7,7 @@ package com.ficticiusclean.vehicleservice.resource;
 
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleDTO;
+import com.ficticiusclean.vehicleservice.repository.VehicleRepository;
 import com.ficticiusclean.vehicleservice.service.VehicleService;
 import java.util.List;
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class VehicleResource {
     public ResponseEntity<String> ping(){
         return ResponseEntity.ok("ping!");
     }
-    
+        
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public  ResponseEntity<VehicleDTO> saveVehicle(@Valid @RequestBody VehicleDTO vehicleDTO){

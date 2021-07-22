@@ -8,6 +8,8 @@ package com.ficticiusclean.vehicleservice.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
@@ -17,6 +19,8 @@ import javax.validation.constraints.Positive;
 public class VehicleDTO {
 
     private long id;
+    @NotNull(message = "O campo \"nome\" é obrigatório")
+    @NotEmpty(message = "O campo \"nome\" deve conter um valor")
     @JsonProperty("nome")
     private String name;
     @JsonProperty("marca")
