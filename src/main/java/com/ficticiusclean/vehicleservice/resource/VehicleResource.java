@@ -62,4 +62,9 @@ public class VehicleResource {
     public  void deleteVehicle(@PathVariable("id") Long id){
         vehicleService.deleteVehicle(id);
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<VehicleDTO> getVehicle(@PathVariable("id") Long id){
+        return ResponseEntity.ok(vehicleService.getVehicle(id));
+    }
 }
