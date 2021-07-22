@@ -27,7 +27,13 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(VehicleNotFoundException.class)
     public ResponseEntity<StandardError> handleVehicleNotFound(VehicleNotFoundException vehicleNotFoundException) {
-        StandardError standardError = new StandardError(HttpStatus.NOT_ACCEPTABLE.value(), LocalDateTime.now(), Arrays.asList(vehicleNotFoundException.getMessage()));
+        StandardError standardError = new StandardError(HttpStatus.NOT_FOUND.value(), LocalDateTime.now(), Arrays.asList(vehicleNotFoundException.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+    }
+    
+    @ExceptionHandler(InvalidOperationException.class)
+    public ResponseEntity<StandardError> handleInvalidOperation(InvalidOperationException ex) {
+        StandardError standardError = new StandardError(HttpStatus.NOT_ACCEPTABLE.value(), LocalDateTime.now(), Arrays.asList(ex.getMessage()));
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(standardError);
     }
 

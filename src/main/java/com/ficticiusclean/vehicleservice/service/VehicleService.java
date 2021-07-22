@@ -9,8 +9,10 @@ import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleDTO;
 import com.ficticiusclean.vehicleservice.model.converter.VehicleDtoToVehicleConverter;
 import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleDtoConverter;
+import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import com.ficticiusclean.vehicleservice.repository.VehicleRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +40,17 @@ public class VehicleService {
     
     public List<Vehicle> getAllVehicles(){
         return vehicleRepository.findAll();
+    }
+    
+    public VehicleDTO updateVehicle(long id, VehicleDTO vehicleDTO){
+        Optional vehicleOptional = vehicleRepository.findById(id);
+        if(!vehicleOptional.isPresent())
+            throw new VehicleNotFoundException("Veículo com id: " + id + " não encontrado");
+        
+        Vehicle newVehicle = dtoToVehicleConverter.convert(vehicleDTO);
+        newVehicle.setId(id);
+        
+        Vehicle vehicleUpdated = vehicleRepository.save(newVehicle);
+        return vehicleToVehicleDTOConverter.convert(vehicleUpdated);        
     }
 }

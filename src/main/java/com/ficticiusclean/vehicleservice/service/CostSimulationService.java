@@ -9,7 +9,7 @@ import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleResponse;
 import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleResponseConverter;
-import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
+import com.ficticiusclean.vehicleservice.model.exception.InvalidOperationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +32,7 @@ public class CostSimulationService {
     public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation) {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
         if (vehicles.isEmpty()) {
-            throw new VehicleNotFoundException("Não existem veículos na base");
+            throw new InvalidOperationException("Não existem veículos na base");
         }
 
         List<VehicleResponse> vehicleResponseList = new ArrayList<>();
