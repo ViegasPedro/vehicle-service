@@ -20,7 +20,7 @@ public class VehicleFuelCostsDTO implements Comparable<VehicleFuelCostsDTO> {
     @JsonProperty("modelo")
     private String model;
     @JsonProperty("ano")
-    private int manufactureYear;
+    private Integer manufactureYear;
     @JsonProperty("quantidadeCombustivelGasto")
     private double totalFuelConsumed;
     @JsonProperty("valorCombustivelGasto")
@@ -29,7 +29,7 @@ public class VehicleFuelCostsDTO implements Comparable<VehicleFuelCostsDTO> {
     public VehicleFuelCostsDTO() {
     }
 
-    public VehicleFuelCostsDTO(String nome, String marca, String modelo, int ano, double quantidadeCombustivelGasto, double valorCombustivelGasto) {
+    public VehicleFuelCostsDTO(String nome, String marca, String modelo, Integer ano, double quantidadeCombustivelGasto, double valorCombustivelGasto) {
         this.name = nome;
         this.brand = marca;
         this.model = modelo;
@@ -62,11 +62,11 @@ public class VehicleFuelCostsDTO implements Comparable<VehicleFuelCostsDTO> {
         this.model = model;
     }
 
-    public int getManufactureYear() {
+    public Integer getManufactureYear() {
         return manufactureYear;
     }
 
-    public void setManufactureYear(int manufactureYear) {
+    public void setManufactureYear(Integer manufactureYear) {
         this.manufactureYear = manufactureYear;
     }
 

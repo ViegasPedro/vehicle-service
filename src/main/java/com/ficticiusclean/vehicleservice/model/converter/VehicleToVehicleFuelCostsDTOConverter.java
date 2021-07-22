@@ -21,7 +21,8 @@ public class VehicleToVehicleFuelCostsDTOConverter implements Converter<Vehicle,
     public VehicleFuelCostsDTO convert(Vehicle vehicle) {
         VehicleFuelCostsDTO vehicleFuelCostsDTO = new VehicleFuelCostsDTO();
         vehicleFuelCostsDTO.setName(vehicle.getName());
-        vehicleFuelCostsDTO.setManufactureYear(vehicle.getManufactureDate().getYear());
+        if(vehicle.getManufactureDate() != null)
+            vehicleFuelCostsDTO.setManufactureYear(vehicle.getManufactureDate().getYear());
         vehicleFuelCostsDTO.setBrand(vehicle.getBrand());
         vehicleFuelCostsDTO.setName(vehicle.getName());
         vehicleFuelCostsDTO.setModel(vehicle.getModel());
