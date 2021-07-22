@@ -8,6 +8,7 @@ package com.ficticiusclean.vehicleservice.service;
 import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.model.VehicleResponse;
+import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleResponseConverter;
 import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,9 @@ public class CostSimulationService {
     
     @Autowired
     private VehicleService vehicleService;
+    
+    @Autowired
+    private VehicleToVehicleResponseConverter vehicleConverter;
     
     public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation){
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
@@ -43,13 +47,11 @@ public class CostSimulationService {
                 highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getPrecoGasolina(),costSimulation.getTotalKmRodovia());
                 highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalKmRodovia());
             }
-            vehiclesResponse.add(
-                    new VehicleResponse(vehicle.getNome(), 
-                            vehicle.getMarca(), 
-                            vehicle.getModelo(), 
-                            vehicle.getDataFabricacao().getYear(), 
-                            cityFuelAmountSimulation + highwayFuelAmountSimulation,
-                            highwayFuelCostSimulation + cityFuelCostSimulation));
+            VehicleResponse vehicleResponse = vehicleConverter.convert(vehicle);
+            vehicleResponse.setQuantidadeCombustivelGasto(cityFuelAmountSimulation + highwayFuelAmountSimulation);
+            vehicleResponse.setValorCombustivelGasto(cityFuelCostSimulation + highwayFuelCostSimulation);
+            
+            vehiclesResponse.add(vehicleResponse);
         }
         Collections.sort(vehiclesResponse);
         return vehiclesResponse;
