@@ -52,13 +52,13 @@ public class CostSimulationService {
 
         //apenas calcula os gastos na cidade se foi informado a distancia percorrida na cidade
         if (costSimulation.getTotalDistanceInCity() > 0) {
-            cityFuelCostSimulation = (costSimulation.getTotalDistanceInCity() / vehicle.getAverageCityConsumption()) * costSimulation.getFuelPrice();
             cityFuelAmountSimulation = costSimulation.getTotalDistanceInCity() / vehicle.getAverageCityConsumption();
+            cityFuelCostSimulation = cityFuelAmountSimulation * costSimulation.getFuelPrice();
         }
-        //apenas calcula os gastos na rodovia se foi informado a distanria percorrida na rodovia
+        //apenas calcula os gastos na rodovia se foi informado a distancia percorrida na rodovia
         if (costSimulation.getTotalDistanceInHighway() > 0) {
-            highwayFuelCostSimulation = (costSimulation.getTotalDistanceInHighway() / vehicle.getAvaregeHighwayConsumption()) * costSimulation.getFuelPrice();
             highwayFuelAmountSimulation = costSimulation.getTotalDistanceInHighway() / vehicle.getAvaregeHighwayConsumption();
+            highwayFuelCostSimulation = highwayFuelAmountSimulation * costSimulation.getFuelPrice();
         }
         VehicleFuelCostsDTO vehicleFuelCostsDTO = vehicleConverter.convert(vehicle);
         vehicleFuelCostsDTO.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
