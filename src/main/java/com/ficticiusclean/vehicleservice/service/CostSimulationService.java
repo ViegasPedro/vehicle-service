@@ -7,8 +7,8 @@ package com.ficticiusclean.vehicleservice.service;
 
 import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
-import com.ficticiusclean.vehicleservice.model.VehicleResponse;
-import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleResponseConverter;
+import com.ficticiusclean.vehicleservice.model.VehicleFuelCostsDTO;
+import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleFuelCostsDTOConverter;
 import com.ficticiusclean.vehicleservice.model.exception.InvalidOperationException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,42 +27,44 @@ public class CostSimulationService {
     private VehicleService vehicleService;
 
     @Autowired
-    private VehicleToVehicleResponseConverter vehicleConverter;
+    private VehicleToVehicleFuelCostsDTOConverter vehicleConverter;
 
-    public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation) {
+    public List<VehicleFuelCostsDTO> simulateCosts(CostSimulationDTO costSimulation) {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
         if (vehicles.isEmpty()) {
             throw new InvalidOperationException("Não existem veículos na base");
         }
 
-        List<VehicleResponse> vehicleResponseList = new ArrayList<>();
+        List<VehicleFuelCostsDTO> vehicleFuelCostsDTOList = new ArrayList<>();
 
         for (Vehicle vehicle : vehicles) {
-            vehicleResponseList.add(createVehicleWithFuelData(vehicle, costSimulation));
+            vehicleFuelCostsDTOList.add(createVehicleWithFuelData(vehicle, costSimulation));
         }
-        Collections.sort(vehicleResponseList);
-        return vehicleResponseList;
+        Collections.sort(vehicleFuelCostsDTOList);
+        return vehicleFuelCostsDTOList;
     }
 
-    private VehicleResponse createVehicleWithFuelData(Vehicle vehicle, CostSimulationDTO costSimulation) {
+    private VehicleFuelCostsDTO createVehicleWithFuelData(Vehicle vehicle, CostSimulationDTO costSimulation) {
         double cityFuelCostSimulation = 0,
                 highwayFuelCostSimulation = 0,
                 cityFuelAmountSimulation = 0,
                 highwayFuelAmountSimulation = 0;
 
+        //apenas calcula os gastos na cidade se foi informado a distancia percorrida na cidade
         if (costSimulation.getTotalDistanceInCity() > 0) {
-            cityFuelCostSimulation = vehicle.simulateCityFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInCity());
-            cityFuelAmountSimulation = vehicle.simulatecityFuelAmout(costSimulation.getTotalDistanceInCity());
+            cityFuelCostSimulation = (costSimulation.getTotalDistanceInCity() / vehicle.getAverageCityConsumption()) * costSimulation.getFuelPrice();
+            cityFuelAmountSimulation = costSimulation.getTotalDistanceInCity() / vehicle.getAverageCityConsumption();
         }
+        //apenas calcula os gastos na rodovia se foi informado a distanria percorrida na rodovia
         if (costSimulation.getTotalDistanceInHighway() > 0) {
-            highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInHighway());
-            highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalDistanceInHighway());
+            highwayFuelCostSimulation = (costSimulation.getTotalDistanceInHighway() / vehicle.getAvaregeHighwayConsumption()) * costSimulation.getFuelPrice();
+            highwayFuelAmountSimulation = costSimulation.getTotalDistanceInHighway() / vehicle.getAvaregeHighwayConsumption();
         }
-        VehicleResponse vehicleResponse = vehicleConverter.convert(vehicle);
-        vehicleResponse.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
-        vehicleResponse.setTotalFuelCost(cityFuelCostSimulation + highwayFuelCostSimulation);
+        VehicleFuelCostsDTO vehicleFuelCostsDTO = vehicleConverter.convert(vehicle);
+        vehicleFuelCostsDTO.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
+        vehicleFuelCostsDTO.setTotalFuelCost(cityFuelCostSimulation + highwayFuelCostSimulation);
 
-        return vehicleResponse;
+        return vehicleFuelCostsDTO;
     }
 
 }

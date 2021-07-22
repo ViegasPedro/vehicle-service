@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author pedro
  */
-public class VehicleResponse implements Comparable<VehicleResponse> {
+public class VehicleFuelCostsDTO implements Comparable<VehicleFuelCostsDTO> {
 
     @JsonProperty("nome")
     private String name;
@@ -26,10 +26,10 @@ public class VehicleResponse implements Comparable<VehicleResponse> {
     @JsonProperty("valorCombustivelGasto")
     private double totalFuelCost;
 
-    public VehicleResponse() {
+    public VehicleFuelCostsDTO() {
     }
 
-    public VehicleResponse(String nome, String marca, String modelo, int ano, double quantidadeCombustivelGasto, double valorCombustivelGasto) {
+    public VehicleFuelCostsDTO(String nome, String marca, String modelo, int ano, double quantidadeCombustivelGasto, double valorCombustivelGasto) {
         this.name = nome;
         this.brand = marca;
         this.model = modelo;
@@ -86,7 +86,7 @@ public class VehicleResponse implements Comparable<VehicleResponse> {
         this.totalFuelCost = totalFuelCost;
     }
 
-    public int compareTo(VehicleResponse o) {
+    public int compareTo(VehicleFuelCostsDTO o) {
         if (this.totalFuelCost < o.getTotalFuelCost())
             return -1;
         if (this.totalFuelCost > o.getTotalFuelCost())

@@ -29,22 +29,6 @@ public class Vehicle implements Serializable {
     private double averageCityConsumption;
     private double avaregeHighwayConsumption;
 
-    public double simulateCityFuelCost(double fuelCost, double distance){
-        return simulatecityFuelAmout(distance) * fuelCost;
-    }
-    
-    public double simulateHighwayFuelCost(double fuelCost, double distance){
-        return simulateHighwayFuelAmout(distance) * fuelCost;
-    }
-    
-    public double simulateHighwayFuelAmout(double distance){
-        return distance/avaregeHighwayConsumption;
-    }
-    
-    public double simulatecityFuelAmout(double distance){
-        return distance/averageCityConsumption;
-    }
-
     public long getId() {
         return id;
     }

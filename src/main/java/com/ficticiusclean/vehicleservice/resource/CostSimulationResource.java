@@ -6,7 +6,7 @@
 package com.ficticiusclean.vehicleservice.resource;
 
 import com.ficticiusclean.vehicleservice.model.CostSimulationDTO;
-import com.ficticiusclean.vehicleservice.model.VehicleResponse;
+import com.ficticiusclean.vehicleservice.model.VehicleFuelCostsDTO;
 import com.ficticiusclean.vehicleservice.service.CostSimulationService;
 import java.util.List;
 import javax.validation.Valid;
@@ -29,7 +29,7 @@ public class CostSimulationResource {
     private CostSimulationService costSimulationService;
     
     @PostMapping
-    public ResponseEntity<List<VehicleResponse>> simulateFuelCosts(@Valid @RequestBody CostSimulationDTO costSimulation){
+    public ResponseEntity<List<VehicleFuelCostsDTO>> simulateFuelCosts(@Valid @RequestBody CostSimulationDTO costSimulation){
         return ResponseEntity.ok(costSimulationService.simulateCosts(costSimulation));
     }
 }
