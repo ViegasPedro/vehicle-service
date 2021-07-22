@@ -11,6 +11,7 @@ import com.ficticiusclean.vehicleservice.model.converter.VehicleDtoToVehicleConv
 import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleDtoConverter;
 import com.ficticiusclean.vehicleservice.model.exception.VehicleNotFoundException;
 import com.ficticiusclean.vehicleservice.repository.VehicleRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,16 @@ public class VehicleService {
         Vehicle vehicle = dtoToVehicleConverter.convert(vehicleDTO);
         Vehicle vehicleSaved = vehicleRepository.save(vehicle);
         return vehicleToVehicleDTOConverter.convert(vehicleSaved);
+    }
+    
+    public List<VehicleDTO> getAllVehiclesDTO(){
+        List<Vehicle> vehiclesInDB = vehicleRepository.findAll();
+        
+        List<VehicleDTO> vehicleDtoList = new ArrayList<>();
+        for(Vehicle vehicle: vehiclesInDB){
+            vehicleDtoList.add(vehicleToVehicleDTOConverter.convert(vehicle));
+        }
+        return vehicleDtoList;
     }
     
     public List<Vehicle> getAllVehicles(){

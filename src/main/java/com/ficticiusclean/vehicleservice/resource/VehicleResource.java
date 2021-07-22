@@ -46,8 +46,8 @@ public class VehicleResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Vehicle>> getAll(){
-        return ResponseEntity.ok(vehicleService.getAllVehicles());
+    public ResponseEntity<List<VehicleDTO>> getAll(){
+        return ResponseEntity.ok(vehicleService.getAllVehiclesDTO());
     }
     
     @PutMapping("/{id}")
