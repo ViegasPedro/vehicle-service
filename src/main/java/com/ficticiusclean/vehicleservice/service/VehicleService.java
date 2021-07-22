@@ -53,4 +53,13 @@ public class VehicleService {
         Vehicle vehicleUpdated = vehicleRepository.save(newVehicle);
         return vehicleToVehicleDTOConverter.convert(vehicleUpdated);        
     }
+    
+    public void deleteVehicle(long id){
+        Optional vehicleOptional = vehicleRepository.findById(id);
+        if(!vehicleOptional.isPresent())
+            throw new VehicleNotFoundException("Veículo com id: " + id + " não encontrado");
+        
+        vehicleRepository.deleteById(id);
+    }
+    
 }

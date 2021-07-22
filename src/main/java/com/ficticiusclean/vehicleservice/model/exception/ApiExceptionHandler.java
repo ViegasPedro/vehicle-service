@@ -16,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 /**
  * Created 21/07/2021
@@ -54,4 +55,12 @@ public class ApiExceptionHandler {
         StandardError standardError = new StandardError(HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), Arrays.asList("Body da requisição inválido"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
+
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<StandardError> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
+        StandardError standardError = new StandardError(HttpStatus.METHOD_NOT_ALLOWED.value(), LocalDateTime.now(), Arrays.asList("Método da requisição não suportado"));
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(standardError);
+    }
+    
+    
 }
