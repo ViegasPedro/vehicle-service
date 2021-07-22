@@ -5,6 +5,7 @@
  */
 package com.ficticiusclean.vehicleservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ficticiusclean.vehicleservice.model.validation.CostSimulation;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -16,32 +17,35 @@ import javax.validation.constraints.PositiveOrZero;
 public class CostSimulationDTO {
 
     @PositiveOrZero(message = "O campo \"precoGasolina\" deve ser maior ou igual a 0")
-    private double precoGasolina;
-    private double totalKmCidade;
-    private double totalKmRodovia;
+    @JsonProperty("precoGasolina")
+    private double fuelPrice;
+    @JsonProperty("totalKmCidade")
+    private double totalDistanceInCity;
+    @JsonProperty("totalKmRodovia")
+    private double totalDistanceInHighway;
 
-    public double getPrecoGasolina() {
-        return precoGasolina;
+    public double getFuelPrice() {
+        return fuelPrice;
     }
 
-    public void setPrecoGasolina(double precoGasolina) {
-        this.precoGasolina = precoGasolina;
+    public void setFuelPrice(double fuelPrice) {
+        this.fuelPrice = fuelPrice;
     }
 
-    public double getTotalKmCidade() {
-        return totalKmCidade;
+    public double getTotalDistanceInCity() {
+        return totalDistanceInCity;
     }
 
-    public void setTotalKmCidade(double totalKmCidade) {
-        this.totalKmCidade = totalKmCidade;
+    public void setTotalDistanceInCity(double totalDistanceInCity) {
+        this.totalDistanceInCity = totalDistanceInCity;
     }
 
-    public double getTotalKmRodovia() {
-        return totalKmRodovia;
+    public double getTotalDistanceInHighway() {
+        return totalDistanceInHighway;
     }
 
-    public void setTotalKmRodovia(double totalKmRodovia) {
-        this.totalKmRodovia = totalKmRodovia;
+    public void setTotalDistanceInHighway(double totalDistanceInHighway) {
+        this.totalDistanceInHighway = totalDistanceInHighway;
     }
     
     

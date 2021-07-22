@@ -39,17 +39,17 @@ public class CostSimulationService {
         for(Vehicle vehicle : vehicles){
             double cityFuelCostSimulation = 0, highwayFuelCostSimulation = 0,
                     cityFuelAmountSimulation = 0, highwayFuelAmountSimulation = 0; 
-            if(costSimulation.getTotalKmCidade() > 0.0){
-                cityFuelCostSimulation = vehicle.simulateCityFuelCost(costSimulation.getPrecoGasolina(), costSimulation.getTotalKmCidade());
-                cityFuelAmountSimulation = vehicle.simulatecityFuelAmout(costSimulation.getTotalKmCidade());
+            if(costSimulation.getTotalDistanceInCity() > 0.0){
+                cityFuelCostSimulation = vehicle.simulateCityFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInCity());
+                cityFuelAmountSimulation = vehicle.simulatecityFuelAmout(costSimulation.getTotalDistanceInCity());
             }
-            if(costSimulation.getTotalKmRodovia()> 0.0){
-                highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getPrecoGasolina(),costSimulation.getTotalKmRodovia());
-                highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalKmRodovia());
+            if(costSimulation.getTotalDistanceInHighway()> 0.0){
+                highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getFuelPrice(),costSimulation.getTotalDistanceInHighway());
+                highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalDistanceInHighway());
             }
             VehicleResponse vehicleResponse = vehicleConverter.convert(vehicle);
-            vehicleResponse.setQuantidadeCombustivelGasto(cityFuelAmountSimulation + highwayFuelAmountSimulation);
-            vehicleResponse.setValorCombustivelGasto(cityFuelCostSimulation + highwayFuelCostSimulation);
+            vehicleResponse.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
+            vehicleResponse.setTotalFuelCost(cityFuelCostSimulation + highwayFuelCostSimulation);
             
             vehiclesResponse.add(vehicleResponse);
         }

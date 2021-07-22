@@ -20,8 +20,8 @@ public class CostSimulationValidator implements ConstraintValidator<CostSimulati
     @Override
     public boolean isValid(CostSimulationDTO costSimulationDTO, ConstraintValidatorContext context) {
         //ambos valores não podem ser 0
-        return !(costSimulationDTO.getTotalKmCidade() == 0
-                && costSimulationDTO.getTotalKmRodovia() == 0);
+        return !(costSimulationDTO.getTotalDistanceInCity() == 0
+                && costSimulationDTO.getTotalDistanceInHighway() == 0);
     }
 
 }

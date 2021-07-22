@@ -6,6 +6,7 @@
 package com.ficticiusclean.vehicleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -22,16 +23,22 @@ public class Vehicle implements Serializable {
     @GeneratedValue
     @javax.persistence.Id
     private long id;
-    private String nome;
-    private String marca;
-    private String modelo;
+    @JsonProperty("nome")
+    private String name;
+    @JsonProperty("marca")
+    private String brand;
+    @JsonProperty("modelo")
+    private String model;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate dataFabricacao;
+    @JsonProperty("dataFabricacao")
+    private LocalDate manufactureDate;
     @Positive(message = "O campo \"consumoMedioCidade\" deve ter valor positivo")
-    private double consumoMedioCidade;
+    @JsonProperty("consumoMedioCidade")
+    private double averageCityConsumption;
     @Positive(message = "O campo \"consumoMedioRodovia\" deve ter valor positivo")
-    private double consumoMedioRodovia;
-    
+    @JsonProperty("consumoMedioRodovia")
+    private double avaregeHighwayConsumption;
+
     public double simulateCityFuelCost(double fuelCost, double distance){
         return simulatecityFuelAmout(distance) * fuelCost;
     }
@@ -41,11 +48,11 @@ public class Vehicle implements Serializable {
     }
     
     public double simulateHighwayFuelAmout(double distance){
-        return distance/consumoMedioRodovia;
+        return distance/avaregeHighwayConsumption;
     }
     
     public double simulatecityFuelAmout(double distance){
-        return distance/consumoMedioCidade;
+        return distance/averageCityConsumption;
     }
 
     public long getId() {
@@ -57,56 +64,56 @@ public class Vehicle implements Serializable {
     }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     public String getMarca() {
-        return marca;
+        return brand;
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        this.brand = marca;
     }
 
     public String getModelo() {
-        return modelo;
+        return model;
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        this.model = modelo;
     }
 
     public LocalDate getDataFabricacao() {
-        return dataFabricacao;
+        return manufactureDate;
     }
 
     public void setDataFabricacao(LocalDate dataFabricacao) {
-        this.dataFabricacao = dataFabricacao;
+        this.manufactureDate = dataFabricacao;
     }
 
-    public double getConsumoMedioCidade() {
-        return consumoMedioCidade;
+    public double getAverageCityConsumption() {
+        return averageCityConsumption;
     }
 
-    public void setConsumoMedioCidade(double consumoMedioCidade) {
-        this.consumoMedioCidade = consumoMedioCidade;
+    public void setAverageCityConsumption(double averageCityConsumption) {
+        this.averageCityConsumption = averageCityConsumption;
     }
 
-    public double getConsumoMedioRodovia() {
-        return consumoMedioRodovia;
+    public double getAvaregeHighwayConsumption() {
+        return avaregeHighwayConsumption;
     }
 
-    public void setConsumoMedioRodovia(double consumoMedioRodovia) {
-        this.consumoMedioRodovia = consumoMedioRodovia;
+    public void setAvaregeHighwayConsumption(double avaregeHighwayConsumption) {
+        this.avaregeHighwayConsumption = avaregeHighwayConsumption;
     }
 
     @Override
     public String toString() {
-        return "Vehicle{" + "id=" + id + ", nome=" + nome + ", marca=" + marca + ", modelo=" + modelo + ", dataFabricacao=" + dataFabricacao + ", consumoMedioCidade=" + consumoMedioCidade + ", consumoMedioRodovia=" + consumoMedioRodovia + '}';
+        return "Vehicle{" + "id=" + id + ", nome=" + name + ", marca=" + brand + ", modelo=" + model + ", dataFabricacao=" + manufactureDate + ", consumoMedioCidade=" + averageCityConsumption + ", consumoMedioRodovia=" + avaregeHighwayConsumption + '}';
     }
    
     

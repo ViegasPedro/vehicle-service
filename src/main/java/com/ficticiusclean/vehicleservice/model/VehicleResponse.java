@@ -5,83 +5,91 @@
  */
 package com.ficticiusclean.vehicleservice.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author pedro
  */
 public class VehicleResponse implements Comparable<VehicleResponse> {
 
-    private String nome;
-    private String marca;
-    private String modelo;
-    private int ano;
-    private double quantidadeCombustivelGasto;
-    private double valorCombustivelGasto;
+    @JsonProperty("nome")
+    private String name;
+    @JsonProperty("marca")
+    private String brand;
+    @JsonProperty("modelo")
+    private String model;
+    @JsonProperty("ano")
+    private int manufactureYear;
+    @JsonProperty("quantidadeCombustivelGasto")
+    private double totalFuelConsumed;
+    @JsonProperty("valorCombustivelGasto")
+    private double totalFuelCost;
 
     public VehicleResponse() {
     }
 
     public VehicleResponse(String nome, String marca, String modelo, int ano, double quantidadeCombustivelGasto, double valorCombustivelGasto) {
-        this.nome = nome;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.ano = ano;
-        this.quantidadeCombustivelGasto = quantidadeCombustivelGasto;
-        this.valorCombustivelGasto = valorCombustivelGasto;
+        this.name = nome;
+        this.brand = marca;
+        this.model = modelo;
+        this.manufactureYear = ano;
+        this.totalFuelConsumed = quantidadeCombustivelGasto;
+        this.totalFuelCost = valorCombustivelGasto;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getModel() {
+        return model;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public int getAno() {
-        return ano;
+    public int getManufactureYear() {
+        return manufactureYear;
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
+    public void setManufactureYear(int manufactureYear) {
+        this.manufactureYear = manufactureYear;
     }
 
-    public double getQuantidadeCombustivelGasto() {
-        return quantidadeCombustivelGasto;
+    public double getTotalFuelConsumed() {
+        return totalFuelConsumed;
     }
 
-    public void setQuantidadeCombustivelGasto(double quantidadeCombustivelGasto) {
-        this.quantidadeCombustivelGasto = quantidadeCombustivelGasto;
+    public void setTotalFuelConsumed(double totalFuelConsumed) {
+        this.totalFuelConsumed = totalFuelConsumed;
     }
 
-    public double getValorCombustivelGasto() {
-        return valorCombustivelGasto;
+    public double getTotalFuelCost() {
+        return totalFuelCost;
     }
 
-    public void setValorCombustivelGasto(double valorCombustivelGasto) {
-        this.valorCombustivelGasto = valorCombustivelGasto;
+    public void setTotalFuelCost(double totalFuelCost) {
+        this.totalFuelCost = totalFuelCost;
     }
 
     public int compareTo(VehicleResponse o) {
-        if (this.valorCombustivelGasto < o.getValorCombustivelGasto())
+        if (this.totalFuelCost < o.getTotalFuelCost())
             return -1;
-        if (this.valorCombustivelGasto > o.getValorCombustivelGasto())
+        if (this.totalFuelCost > o.getTotalFuelCost())
             return 1;
         return 0;
     }

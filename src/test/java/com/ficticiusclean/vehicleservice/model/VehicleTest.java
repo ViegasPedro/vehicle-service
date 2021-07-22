@@ -18,7 +18,7 @@ public class VehicleTest {
     @Test
     public void simulateCityFuelCost() {
         Vehicle vehicle = new Vehicle();
-        vehicle.setConsumoMedioCidade(10);
+        vehicle.setAverageCityConsumption(10);
 
         double cityFuelCost = vehicle.simulateCityFuelCost(2, 20);
 
@@ -28,7 +28,7 @@ public class VehicleTest {
     @Test
     public void simulateCityFuelAmount() {
         Vehicle vehicle = new Vehicle();
-        vehicle.setConsumoMedioCidade(10);
+        vehicle.setAverageCityConsumption(10);
 
         double cityFuelCost = vehicle.simulatecityFuelAmout(20);
 
@@ -38,7 +38,7 @@ public class VehicleTest {
     @Test
     public void simulateHighwayFuelCost() {
         Vehicle vehicle = new Vehicle();
-        vehicle.setConsumoMedioRodovia(10);
+        vehicle.setAvaregeHighwayConsumption(10);
 
         double fuelCost = vehicle.simulateHighwayFuelCost(2, 20);
 
@@ -48,7 +48,7 @@ public class VehicleTest {
     @Test
     public void simulateHighwayFuelAmout() {
         Vehicle vehicle = new Vehicle();
-        vehicle.setConsumoMedioRodovia(10);
+        vehicle.setAvaregeHighwayConsumption(10);
 
         double fuelAmount = vehicle.simulateHighwayFuelAmout(20);
 
