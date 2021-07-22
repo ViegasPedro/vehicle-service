@@ -8,7 +8,6 @@ package com.ficticiusclean.vehicleservice.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ficticiusclean.vehicleservice.model.Vehicle;
 import com.ficticiusclean.vehicleservice.service.VehicleService;
-import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -34,9 +33,9 @@ public class VehicleResourceIntegrationTest {
     @Test
     public void saveShouldBe200() throws Exception {
         Vehicle vehicle = new Vehicle();
-        vehicle.setMarca("marca");
-        vehicle.setModelo("modelo");
-        vehicle.setNome("nome");
+        vehicle.setBrand("marca");
+        vehicle.setModel("modelo");
+        vehicle.setName("nome");
         vehicle.setAverageCityConsumption(10);
         vehicle.setAvaregeHighwayConsumption(10);
 

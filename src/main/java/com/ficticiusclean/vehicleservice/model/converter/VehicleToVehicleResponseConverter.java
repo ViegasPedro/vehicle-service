@@ -20,11 +20,11 @@ public class VehicleToVehicleResponseConverter implements Converter<Vehicle, Veh
     @Override
     public VehicleResponse convert(Vehicle vehicle) {
         VehicleResponse vehicleResponse = new VehicleResponse();
-        vehicleResponse.setName(vehicle.getNome());
-        vehicleResponse.setManufactureYear(vehicle.getDataFabricacao().getYear());
-        vehicleResponse.setBrand(vehicle.getMarca());
-        vehicleResponse.setName(vehicle.getNome());
-        vehicleResponse.setModel(vehicle.getModelo());
+        vehicleResponse.setName(vehicle.getName());
+        vehicleResponse.setManufactureYear(vehicle.getManufactureDate().getYear());
+        vehicleResponse.setBrand(vehicle.getBrand());
+        vehicleResponse.setName(vehicle.getName());
+        vehicleResponse.setModel(vehicle.getModel());
         return vehicleResponse;
     }
 

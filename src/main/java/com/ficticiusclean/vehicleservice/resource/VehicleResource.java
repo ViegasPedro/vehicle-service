@@ -6,6 +6,7 @@
 package com.ficticiusclean.vehicleservice.resource;
 
 import com.ficticiusclean.vehicleservice.model.Vehicle;
+import com.ficticiusclean.vehicleservice.model.VehicleDTO;
 import com.ficticiusclean.vehicleservice.service.VehicleService;
 import java.util.List;
 import javax.validation.Valid;
@@ -37,8 +38,8 @@ public class VehicleResource {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveVehicle(@Valid @RequestBody Vehicle vehicle){
-        vehicleService.saveVehicle(vehicle);
+    public  ResponseEntity<VehicleDTO> saveVehicle(@Valid @RequestBody VehicleDTO vehicleDTO){
+        return ResponseEntity.ok(vehicleService.saveVehicle(vehicleDTO));
     }
 
     @GetMapping

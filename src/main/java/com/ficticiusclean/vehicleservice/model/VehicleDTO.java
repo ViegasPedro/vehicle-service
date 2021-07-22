@@ -6,44 +6,32 @@
 package com.ficticiusclean.vehicleservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.validation.constraints.Positive;
 
 /**
  *
  * @author pedro
  */
-@Entity
-public class Vehicle implements Serializable {
-    
-    @GeneratedValue
-    @javax.persistence.Id
+public class VehicleDTO {
+
     private long id;
+    @JsonProperty("nome")
     private String name;
+    @JsonProperty("marca")
     private String brand;
+    @JsonProperty("modelo")
     private String model;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonProperty("dataFabricacao")
     private LocalDate manufactureDate;
+    @Positive(message = "O campo \"consumoMedioCidade\" deve ter valor positivo")
+    @JsonProperty("consumoMedioCidade")
     private double averageCityConsumption;
+    @Positive(message = "O campo \"consumoMedioRodovia\" deve ter valor positivo")
+    @JsonProperty("consumoMedioRodovia")
     private double avaregeHighwayConsumption;
-
-    public double simulateCityFuelCost(double fuelCost, double distance){
-        return simulatecityFuelAmout(distance) * fuelCost;
-    }
-    
-    public double simulateHighwayFuelCost(double fuelCost, double distance){
-        return simulateHighwayFuelAmout(distance) * fuelCost;
-    }
-    
-    public double simulateHighwayFuelAmout(double distance){
-        return distance/avaregeHighwayConsumption;
-    }
-    
-    public double simulatecityFuelAmout(double distance){
-        return distance/averageCityConsumption;
-    }
 
     public long getId() {
         return id;
@@ -100,11 +88,6 @@ public class Vehicle implements Serializable {
     public void setAvaregeHighwayConsumption(double avaregeHighwayConsumption) {
         this.avaregeHighwayConsumption = avaregeHighwayConsumption;
     }
-
-    @Override
-    public String toString() {
-        return "Vehicle{" + "id=" + id + ", nome=" + name + ", marca=" + brand + ", modelo=" + model + ", dataFabricacao=" + manufactureDate + ", consumoMedioCidade=" + averageCityConsumption + ", consumoMedioRodovia=" + avaregeHighwayConsumption + '}';
-    }
-   
+    
     
 }

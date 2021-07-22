@@ -6,6 +6,9 @@
 package com.ficticiusclean.vehicleservice.service;
 
 import com.ficticiusclean.vehicleservice.model.Vehicle;
+import com.ficticiusclean.vehicleservice.model.VehicleDTO;
+import com.ficticiusclean.vehicleservice.model.converter.VehicleDtoToVehicleConverter;
+import com.ficticiusclean.vehicleservice.model.converter.VehicleToVehicleDtoConverter;
 import com.ficticiusclean.vehicleservice.repository.VehicleRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,16 @@ public class VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
     
-    public void saveVehicle(Vehicle vehicle){
-        vehicleRepository.save(vehicle);
+    @Autowired
+    private VehicleDtoToVehicleConverter dtoToVehicleConverter;
+    
+    @Autowired
+    private VehicleToVehicleDtoConverter vehicleToVehicleDTOConverter;
+    
+    public VehicleDTO saveVehicle(VehicleDTO vehicleDTO){
+        Vehicle vehicle = dtoToVehicleConverter.convert(vehicleDTO);
+        Vehicle vehicleSaved = vehicleRepository.save(vehicle);
+        return vehicleToVehicleDTOConverter.convert(vehicleSaved);
     }
     
     public List<Vehicle> getAllVehicles(){

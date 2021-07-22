@@ -22,38 +22,47 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CostSimulationService {
-    
+
     @Autowired
     private VehicleService vehicleService;
-    
+
     @Autowired
     private VehicleToVehicleResponseConverter vehicleConverter;
-    
-    public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation){
+
+    public List<VehicleResponse> simulateCosts(CostSimulationDTO costSimulation) {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
-        if(vehicles.isEmpty())
+        if (vehicles.isEmpty()) {
             throw new VehicleNotFoundException("Não existem veículos na base");
-        
-        List<VehicleResponse> vehiclesResponse = new ArrayList<>();
-        
-        for(Vehicle vehicle : vehicles){
-            double cityFuelCostSimulation = 0, highwayFuelCostSimulation = 0,
-                    cityFuelAmountSimulation = 0, highwayFuelAmountSimulation = 0; 
-            if(costSimulation.getTotalDistanceInCity() > 0.0){
-                cityFuelCostSimulation = vehicle.simulateCityFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInCity());
-                cityFuelAmountSimulation = vehicle.simulatecityFuelAmout(costSimulation.getTotalDistanceInCity());
-            }
-            if(costSimulation.getTotalDistanceInHighway()> 0.0){
-                highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getFuelPrice(),costSimulation.getTotalDistanceInHighway());
-                highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalDistanceInHighway());
-            }
-            VehicleResponse vehicleResponse = vehicleConverter.convert(vehicle);
-            vehicleResponse.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
-            vehicleResponse.setTotalFuelCost(cityFuelCostSimulation + highwayFuelCostSimulation);
-            
-            vehiclesResponse.add(vehicleResponse);
         }
-        Collections.sort(vehiclesResponse);
-        return vehiclesResponse;
+
+        List<VehicleResponse> vehicleResponseList = new ArrayList<>();
+
+        for (Vehicle vehicle : vehicles) {
+            vehicleResponseList.add(createVehicleWithFuelData(vehicle, costSimulation));
+        }
+        Collections.sort(vehicleResponseList);
+        return vehicleResponseList;
     }
+
+    private VehicleResponse createVehicleWithFuelData(Vehicle vehicle, CostSimulationDTO costSimulation) {
+        double cityFuelCostSimulation = 0,
+                highwayFuelCostSimulation = 0,
+                cityFuelAmountSimulation = 0,
+                highwayFuelAmountSimulation = 0;
+
+        if (costSimulation.getTotalDistanceInCity() > 0) {
+            cityFuelCostSimulation = vehicle.simulateCityFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInCity());
+            cityFuelAmountSimulation = vehicle.simulatecityFuelAmout(costSimulation.getTotalDistanceInCity());
+        }
+        if (costSimulation.getTotalDistanceInHighway() > 0) {
+            highwayFuelCostSimulation = vehicle.simulateHighwayFuelCost(costSimulation.getFuelPrice(), costSimulation.getTotalDistanceInHighway());
+            highwayFuelAmountSimulation = vehicle.simulateHighwayFuelAmout(costSimulation.getTotalDistanceInHighway());
+        }
+        VehicleResponse vehicleResponse = vehicleConverter.convert(vehicle);
+        vehicleResponse.setTotalFuelConsumed(cityFuelAmountSimulation + highwayFuelAmountSimulation);
+        vehicleResponse.setTotalFuelCost(cityFuelCostSimulation + highwayFuelCostSimulation);
+
+        return vehicleResponse;
+    }
+
 }
