@@ -32,7 +32,7 @@ cd vehicle-service
 ```json
 {
     "nome":"Carro 1",
-    "dataFabricacao":"21/17/2021",
+    "dataFabricacao":"21/11/2021",
     "marca":"Ford",
     "modelo":"Focus",
     "consumoMedioCidade":10,
@@ -50,7 +50,7 @@ cd vehicle-service
 ```json
 {
     "nome":"Carro 1",
-    "dataFabricacao":"21/17/2021",
+    "dataFabricacao":"21/11/2021",
     "marca":"Ford",
     "modelo":"Focus",
     "consumoMedioCidade":10,
